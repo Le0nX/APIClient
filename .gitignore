@@ -31,6 +31,6 @@ xcuserdata
 
 # Carthage
 Carthage/Build
-APIClient.xcodeproj/xcshareddata
+APIClient.xcodeproj/xcuserdata
 Carthage
 Cartfile.resolved
