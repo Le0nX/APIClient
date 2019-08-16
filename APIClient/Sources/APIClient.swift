@@ -21,12 +21,12 @@ open class APIClient {
         queryParameters: [String: Any],
         jsonParameters: [String: Any],
         headerParameters: [String: String],
+        authorizationHeader: AuthorizationHeader,
         method: HTTPMethod,
-        isAuthorizable: Bool,
         completion: @escaping APIResult<T>) {
         
         let request = RequestBuilder(
-            header: isAuthorizable ? .bearer : .none,
+            header: authorizationHeader,
             baseURL: baseURL,
             queryParameters: queryParameters,
             jsonParameters: jsonParameters,
@@ -59,12 +59,12 @@ open class APIClient {
         queryParameters: [String: Any],
         jsonParameters: [String: Any],
         headerParameters: [String: String],
+        authorizationHeader: AuthorizationHeader,
         method: HTTPMethod,
-        isAuthorizable: Bool,
         completion: @escaping APIResult<Bool>) {
         
         let request = RequestBuilder(
-            header: isAuthorizable ? .bearer : .none,
+            header: authorizationHeader,
             baseURL: baseURL,
             queryParameters: queryParameters,
             jsonParameters: jsonParameters,
