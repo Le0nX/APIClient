@@ -70,14 +70,15 @@ class {{ type.name }}Impl: {{ type.name }} {
         {%else%}
         let authorizationHeader: AuthorizationHeader = .none
         {%endif%}
-        
-       
+
         {% if method|annotated:"validatable" %}
-        apiClient.request(path: path, queryParameters: queryParameters, jsonParameters: jsonParameters,headerParameters: headerParameters, authorizationHeader: authorizationHeader, method: method, completion: completion)
+        let isRequestValidatable = true
         {%else%}
-        apiClient.request_no_reply(path: path, queryParameters: queryParameters, jsonParameters: jsonParameters,headerParameters: headerParameters, authorizationHeader: authorizationHeader, method: method, completion: completion)
+        let isRequestValidatable = false
         {%endif%}
-    
+
+        
+         apiClient.request(path: path, queryParameters: queryParameters, jsonParameters: jsonParameters,headerParameters: headerParameters, method: method, authorizationHeader: authorizationHeader, isRequestValidatable: isRequestValidatable, completion: completion)
     
 
     

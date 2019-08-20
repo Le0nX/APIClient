@@ -1,0 +1,6 @@
+sources:
+  - Example/IOS Example/Services
+templates:
+  - Templates
+output:
+  Example/IOS Example/Generated
