@@ -22,11 +22,12 @@ open class APIClient {
         jsonParameters: [String: Any],
         headerParameters: [String: String],
         method: HTTPMethod,
-        isAuthorizable: Bool,
+        authorizationHeader: AuthorizationHeader,
+        isRequestValidatable: Bool,
         completion: @escaping APIResult<T>) {
         
         let request = RequestBuilder(
-            header: isAuthorizable ? .bearer : .none,
+            header: authorizationHeader,
             baseURL: baseURL,
             queryParameters: queryParameters,
             jsonParameters: jsonParameters,
@@ -35,57 +36,37 @@ open class APIClient {
             path: path)
 
         session.request(request)
-            .response { response in
-                guard response.error == nil, let r = response.response, let data = response.data else {
+            .response { dataResponse in
+                guard dataResponse.error == nil, let response = dataResponse.response else {
                     completion(.failure(.failed))
                     return
                 }
                 
-                if let error = self.responseValidator.validate(request: response.request, response: r, data: response.data) {
+                if isRequestValidatable {
+                    let value: T = true as! T
+                    completion(.success(value))
+                    return
+                }
+                
+                guard let data = dataResponse.data else {
+                    completion(.failure(.noData))
+                    return
+                }
+                
+                if let error = self.responseValidator.validate(
+                    request: dataResponse.request,
+                    response: response,
+                    data: dataResponse.data) {
                     completion(.failure(error))
                     return
                 }
                 
-                if let decoded = try? self.responseDecoder.decode(T.self, from: data) {
-                    completion(.success(decoded))
-                } else {
+                guard let decoded = try? self.responseDecoder.decode(T.self, from: data) else {
                     completion(.failure(.decodingFailure))
-                }
-            }
-    }
-    
-    public func request_no_reply(
-        path: String,
-        queryParameters: [String: Any],
-        jsonParameters: [String: Any],
-        headerParameters: [String: String],
-        method: HTTPMethod,
-        isAuthorizable: Bool,
-        completion: @escaping APIResult<Bool>) {
-        
-        let request = RequestBuilder(
-            header: isAuthorizable ? .bearer : .none,
-            baseURL: baseURL,
-            queryParameters: queryParameters,
-            jsonParameters: jsonParameters,
-            headerParameters: headerParameters,
-            method: method,
-            path: path)
-        
-        session.request(request)
-            .response { response in
-                guard response.error == nil, let r = response.response else {
-                    completion(.failure(.failed))
                     return
                 }
-                
-                if let error = self.responseValidator.validate(request: response.request, response: r, data: response.data) {
-                    completion(.failure(error))
-                    return
-                }
-                completion(.success(true))
+                completion(.success(decoded))
             }
-    }
-    
+    }  
     
 }

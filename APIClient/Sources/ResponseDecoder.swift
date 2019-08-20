@@ -1,4 +1,4 @@
-import Alamofire
+import Foundation
 
 public protocol ResponseDecoder {
     
@@ -11,7 +11,7 @@ public class ResponseDecoderDefault: ResponseDecoder {
     
     private let decoder: JSONDecoder
     
-    init(decoder: JSONDecoder) {
+    public init(decoder: JSONDecoder) {
         self.decoder = decoder
     }
     

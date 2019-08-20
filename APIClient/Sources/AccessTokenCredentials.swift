@@ -17,4 +17,6 @@ public class AccessTokenCredentialsDefaultImp: AccessTokenCredentials {
             token = newValue
         }
     }
+    
+    public init() {}
 }

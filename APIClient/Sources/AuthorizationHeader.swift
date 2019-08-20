@@ -3,6 +3,7 @@ public enum AuthorizationHeader: Equatable {
     case bearer
     case auth
     case basic
+    case custom(String)
     
     public var value: String {
         switch self {
@@ -12,6 +13,8 @@ public enum AuthorizationHeader: Equatable {
             return ""
         case .basic:
             return "Basic "
+        case .custom(let value):
+            return "\(value) "
         default:
             return ""
         }

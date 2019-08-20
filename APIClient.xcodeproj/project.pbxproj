@@ -15,9 +15,9 @@
 		C430B41D23058D72009F9654 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B41423058D72009F9654 /* APIClient.swift */; };
 		C430B41E23058D72009F9654 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B41523058D72009F9654 /* RequestBuilder.swift */; };
 		C430B41F23058D72009F9654 /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B41623058D72009F9654 /* ResponseDecoder.swift */; };
-		C430B42023058D72009F9654 /* AuthorizationRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B41723058D72009F9654 /* AuthorizationRequestInterceptor.swift */; };
 		C430B42123058D72009F9654 /* ResponseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430B41823058D72009F9654 /* ResponseValidator.swift */; };
-		C430B42523058F05009F9654 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C430B42423058F05009F9654 /* Alamofire.framework */; };
+		C4C9F0B4230C0291000CC566 /* AuthorizationRequestInterceptorDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C9F0B3230C0291000CC566 /* AuthorizationRequestInterceptorDefault.swift */; };
+		C4C9F0BC230C0775000CC566 /* NetworkLoggerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C9F0BB230C0775000CC566 /* NetworkLoggerMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,12 @@
 		C430B41423058D72009F9654 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		C430B41523058D72009F9654 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		C430B41623058D72009F9654 /* ResponseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
-		C430B41723058D72009F9654 /* AuthorizationRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequestInterceptor.swift; sourceTree = "<group>"; };
 		C430B41823058D72009F9654 /* ResponseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseValidator.swift; sourceTree = "<group>"; };
 		C430B42423058F05009F9654 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		C4C9F06A230BDCFC000CC566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Vendor/Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		C4C9F087230BE6F9000CC566 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Vendor/Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		C4C9F0B3230C0291000CC566 /* AuthorizationRequestInterceptorDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationRequestInterceptorDefault.swift; sourceTree = "<group>"; };
+		C4C9F0BB230C0775000CC566 /* NetworkLoggerMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C430B42523058F05009F9654 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +87,9 @@
 				C430B41423058D72009F9654 /* APIClient.swift */,
 				C430B41523058D72009F9654 /* RequestBuilder.swift */,
 				C430B41623058D72009F9654 /* ResponseDecoder.swift */,
-				C430B41723058D72009F9654 /* AuthorizationRequestInterceptor.swift */,
 				C430B41823058D72009F9654 /* ResponseValidator.swift */,
+				C4C9F0B3230C0291000CC566 /* AuthorizationRequestInterceptorDefault.swift */,
+				C4C9F0BB230C0775000CC566 /* NetworkLoggerMonitor.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -94,6 +97,8 @@
 		C430B42323058F05009F9654 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4C9F087230BE6F9000CC566 /* Alamofire.framework */,
+				C4C9F06A230BDCFC000CC566 /* Alamofire.framework */,
 				C430B42423058F05009F9654 /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -121,7 +126,6 @@
 				C430B40023058C08009F9654 /* Sources */,
 				C430B40123058C08009F9654 /* Frameworks */,
 				C430B40223058C08009F9654 /* Resources */,
-				C430B42223058EC7009F9654 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -138,6 +142,7 @@
 		C430B3FB23058C08009F9654 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Alexandr Klavsut";
 				TargetAttributes = {
@@ -152,6 +157,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C430B3FA23058C08009F9654;
 			productRefGroup = C430B40523058C08009F9654 /* Products */;
@@ -173,38 +179,18 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		C430B42223058EC7009F9654 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		C430B40023058C08009F9654 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C430B42123058D72009F9654 /* ResponseValidator.swift in Sources */,
+				C4C9F0BC230C0775000CC566 /* NetworkLoggerMonitor.swift in Sources */,
 				C430B41F23058D72009F9654 /* ResponseDecoder.swift in Sources */,
-				C430B42023058D72009F9654 /* AuthorizationRequestInterceptor.swift in Sources */,
 				C430B41A23058D72009F9654 /* AccessTokenCredentials.swift in Sources */,
 				C430B41B23058D72009F9654 /* AuthorizationHeader.swift in Sources */,
 				C430B41923058D72009F9654 /* APIError.swift in Sources */,
+				C4C9F0B4230C0291000CC566 /* AuthorizationRequestInterceptorDefault.swift in Sources */,
 				C430B41E23058D72009F9654 /* RequestBuilder.swift in Sources */,
 				C430B41D23058D72009F9654 /* APIClient.swift in Sources */,
 				C430B41C23058D72009F9654 /* AccessToken.swift in Sources */,
@@ -362,8 +348,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -393,8 +379,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

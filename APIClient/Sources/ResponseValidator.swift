@@ -7,6 +7,8 @@ public protocol ResponseValidator {
 
 public class ResponseValidatorDefault: ResponseValidator {
     
+    public init() {}
+    
     public func validate(request: URLRequest?, response: HTTPURLResponse, data: Data?) -> APIError? {
         switch response.statusCode {
         case 200...299: return nil
