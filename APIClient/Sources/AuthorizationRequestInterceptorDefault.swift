@@ -4,11 +4,12 @@ public class AuthorizationRequestInterceptorDefault: RequestInterceptor {
     
     private var accessTokenCredentials: AccessTokenCredentials!
     private let lock = NSLock()
-    private var token: AccessToken?
+    private var token: AccessToken? {
+        return accessTokenCredentials.accessToken
+    }
     
     public init(accessTokenCredentials: AccessTokenCredentials) {
         self.accessTokenCredentials = accessTokenCredentials
-        self.token = accessTokenCredentials.accessToken
     }
     
     public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult<URLRequest>) -> Void) {
