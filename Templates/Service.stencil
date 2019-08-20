@@ -1,0 +1,90 @@
+{% for type in types.protocols|annotated:"Service" %}
+// sourcery:file:{{ type.name }}
+import Alamofire
+import APIClient
+
+class {{ type.name }}Impl: {{ type.name }} {
+
+    private let apiClient: APIClient
+
+
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }    
+    {% for method in type.methods %}
+
+    func {{ method.name }} {
+     
+
+        let queryParameters: [String: Any] = [
+        {% if method.parameters|annotated:"query" %}
+        {% for p in method.parameters where p.annotations.query %}
+            "{{ p.annotations.query }}": {{p.name}}{% if forloop.last == false %}, {% endif %}{%endfor%}
+        {% else %}
+        :
+        {% endif %}
+        ]
+
+        let pathParameters: [String: Any] = [
+        {% if method.parameters|annotated:"path" %}
+        {% for p in method.parameters where p.annotations.path %}
+            "{{ p.annotations.path }}": {{p.name}}{% if forloop.last == false %}, {% endif %}{%endfor%}
+        {% else %}
+        :
+        {% endif %}
+        ]
+
+        let jsonParameters: [String: Any] = [
+        {% if method.parameters|annotated:"json" %}
+        {% for p in method.parameters where p.annotations.json %}
+            "{{ p.annotations.json }}": {{p.name}}{% if forloop.last == false %}, {% endif %}{%endfor%}
+        {% else %}
+        :
+        {% endif %}
+        ]
+
+        let headerParameters: [String: String] = [
+        {% if method.parameters|annotated:"header" %}
+        {% for p in method.parameters where p.annotations.header %}
+            "{{ p.annotations.header }}": {{p.name}}{% if forloop.last == false %}, {% endif %}{%endfor%}
+        {% else %}
+        :
+        {% endif %}
+        ]
+
+        {% if method|annotated:"method" %}
+        let method: HTTPMethod = .{{method.annotations.method}}
+        {%else%}
+        let method: HTTPMethod = .get
+        {%endif%}
+        
+        var path = "{{method.annotations.path}}"
+        pathParameters.forEach { key, value in
+            path = path.replacingOccurrences(
+                    of: "{\(key)}",
+                    with: "\(value)")
+        }
+
+        {% if method|annotated:"authorizationHeader" %}
+        let authorizationHeader: AuthorizationHeader = .{{method.annotations.authorizationHeader}}
+        {%else%}
+        let authorizationHeader: AuthorizationHeader = .none
+        {%endif%}
+        
+       
+        {% if method|annotated:"validatable" %}
+        apiClient.request(path: path, queryParameters: queryParameters, jsonParameters: jsonParameters,headerParameters: headerParameters, authorizationHeader: authorizationHeader, method: method, completion: completion)
+        {%else%}
+        apiClient.request_no_reply(path: path, queryParameters: queryParameters, jsonParameters: jsonParameters,headerParameters: headerParameters, authorizationHeader: authorizationHeader, method: method, completion: completion)
+        {%endif%}
+    
+    
+
+    
+   
+
+    }
+    {% endfor %}
+}
+// sourcery:end
+{% endfor %}
