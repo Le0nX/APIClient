@@ -1,10 +1,11 @@
-public enum APIError: Error {
+public enum APIError<CustomErrorType: Decodable>: Error {
     case authenticationError
     case badRequest
     case outdated
     case failed
     case noData
     case decodingFailure
+    case custom(CustomErrorType)
     
     var errorDescription: String {
         switch self {
@@ -14,6 +15,7 @@ public enum APIError: Error {
         case .failed: return "Network request failed."
         case .noData: return "Response returned with no data"
         case .decodingFailure: return "We could not decode the response."
+        case .custom: return ""
         }
     }
 }

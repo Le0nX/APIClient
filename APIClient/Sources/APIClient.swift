@@ -1,6 +1,6 @@
 import Alamofire
 
-public typealias APIResult<T> = (Result<T, APIError>) -> Void
+public typealias APIResult<T, Type: Decodable> = (Result<T, APIError<Type>>) -> Void
 
 open class APIClient {
     
@@ -16,7 +16,7 @@ open class APIClient {
         self.responseValidator = responseValidator
     }
     
-    public func request<T: Decodable>(
+    public func request<T: Decodable, D: Decodable>(
         path: String,
         queryParameters: [String: Any],
         jsonParameters: [String: Any],
@@ -24,7 +24,7 @@ open class APIClient {
         method: HTTPMethod,
         authorizationHeader: AuthorizationHeader,
         isRequestValidatable: Bool,
-        completion: @escaping APIResult<T>) {
+        completion: @escaping APIResult<T, D>) {
         
         let request = RequestBuilder(
             header: authorizationHeader,
@@ -54,9 +54,11 @@ open class APIClient {
                 }
                 
                 if let error = self.responseValidator.validate(
+                    D.self,
                     request: dataResponse.request,
                     response: response,
-                    data: dataResponse.data) {
+                    data: dataResponse.data
+                ) {
                     completion(.failure(error))
                     return
                 }
