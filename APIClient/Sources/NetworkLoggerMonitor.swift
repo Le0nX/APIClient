@@ -19,7 +19,7 @@ public class NetworkLoggerMonitor: EventMonitor {
         outputItems(logNetworkRequest(request.request))
     }
     
-    public func request(_ request: Alamofire.DataRequest, didParseResponse response: Alamofire.DataResponse<Data?>) {
+    public func request(_ request: Alamofire.DataRequest, didParseResponse response: Alamofire.DataResponse<Data, Error>) {
         outputItems(logNetworkResponse(response.response, data: response.data, request: request))
     }
     
@@ -68,7 +68,7 @@ public class NetworkLoggerMonitor: EventMonitor {
     
     func logNetworkResponse(_ response: HTTPURLResponse?, data: Data?, request: DataRequest) -> [String] {
         guard let response = response else {
-            return [format(loggerId, date: date, identifier: "Response", message: "Received empty network response for \(request.debugDescription).")]
+            return [format(loggerId, date: date, identifier: "Response", message: "Received empty network response for \(request.description).")]
         }
         
         var output = [String]()
