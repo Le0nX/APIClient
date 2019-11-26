@@ -19,7 +19,7 @@ public class NetworkLoggerMonitor: EventMonitor {
         outputItems(logNetworkRequest(request.request))
     }
     
-    public func request(_ request: Alamofire.DataRequest, didParseResponse response: Alamofire.DataResponse<Data, Error>) {
+    public func request(_ request: Alamofire.DataRequest, didParseResponse response: Alamofire.DataResponse<Data?>) {
         outputItems(logNetworkResponse(response.response, data: response.data, request: request))
     }
     
