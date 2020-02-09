@@ -25,7 +25,7 @@ public struct RequestBuilder: URLRequestConvertible {
             urlRequest = try URLEncoding.default.encode(
                 urlRequest,
                 with: queryParameters)
-        } else if method == .post, !jsonParameters.isEmpty {
+        } else if method == (.post || .put), !jsonParameters.isEmpty {
             urlRequest = try JSONEncoding.default.encode(
                 urlRequest,
                 with: jsonParameters)
